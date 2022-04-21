@@ -1,0 +1,24 @@
+Sale Table:
+sale id, sales date , user email
+
+SaleProducts Table :
+product id, sale id, product name , price , quantity, category(men/women/kids) , size, color
+
+
+I want to see report of list of sales with fields :
+user email, sale date, sale total (how much the user needs to pay)
+the condition -
+the total sold - for category women only- is bigger than the average that was sold in this category.
+
+
+SELECT S.user_email, S.sale_date, SP.SALE_TOTAL
+FROM Sale S
+INNER JOIN
+(
+SELECT sale id,
+SUM(price*quantity) AS SALE_TOTAL
+FROM SaleProducts
+WHERE category = 'women'
+GROUP BY sale id
+) SP ON S.sale_id = SP.sale_id
+WHERE SP.SALE_TOTAL > AVG(SALE_TOTAL)
