@@ -1,0 +1,112 @@
+<div id="filterpanel" class="gutter-b">
+  <div class="card-body py-0">
+    <div class="form form-label-right">
+      <div class="form-group row">
+        <div class="col-lg-12">
+          <div class="row" [formGroup]="filterGroup">
+            <div class="col-lg-4">
+              <small class="form-text text-muted"
+                >Category</small
+              >
+              <select
+                #category_id
+                class="form-control"
+                name="category_id"
+                placeholder="Category"
+                formControlName="category_id"
+              >
+                <option value="-1">All</option>
+                <option *ngFor="let item of categories" value="{{item.spC_VALUEINT}}">{{item.spC_NAME}}</option>
+              </select>
+            </div>
+
+            <div class="col-lg-4">
+              <small class="form-text text-muted"
+                >Size</small
+              >
+              <select
+                #size_id
+                class="form-control"
+                name="size_id"
+                placeholder="Size"
+                formControlName="size_id"
+              >
+                <option value="-1">All</option>
+                <option *ngFor="let item of sizes" value="{{item.spC_VALUEINT}}">{{item.spC_NAME}}</option>
+              </select>
+            </div>
+
+            <div class="col-lg-4">
+              <small class="form-text text-muted"
+                >Color</small
+              >
+              <select
+                #color_id
+                class="form-control"
+                name="color_id"
+                placeholder="Color"
+                formControlName="color_id"
+              >
+                <option value="-1">All</option>
+                <option *ngFor="let item of colors" value="{{item.spC_VALUEINT}}">{{item.spC_NAME}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="content" class="my-5">
+  <div id="products">
+    <div class="row mx-0">
+        <div *ngFor="let item of tableService.items$ | async" class="col-lg-4 col-md-6 mb-2">
+            <div class="card d-flex flex-column align-items-center">
+                <div class="product-name">{{item.product_name}}</div> <button (click)="AddToCart(item.product_id);" class="btn btn-success">ADD TO CART</button>
+                <div class="card-img"  *ngIf="item.product_name == 'JEANS'">  <img src="https://www.freepnglogos.com/uploads/jeans-png/jeans-mens-pants-cliparts-download-clip-art-37.png" alt=""> </div>
+                <div class="card-img"  *ngIf="item.product_name == 'SWEATER'">  <img src="data:image/jpeg;base64,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" alt=""> </div>
+                <div class="card-img"  *ngIf="item.product_name == 'T-SHIRT'">  <img src="https://www.asket.com/imgproxy/e:1/format:jpeg/width:1080/resize:fit/quality:80/plain/https://asket.centracdn.net/client/dynamic/images/2_00d6bb1f5b-asket_tee_white_cart_thumb-original.jpg@jpg" alt=""> </div>
+                <div class="card-img"  *ngIf="item.product_name == 'JACKET'">  <img src="data:image/jpeg;base64,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" alt=""> </div>
+                <div class="card-body pt-5">
+                    <div class="d-flex align-items-center justify-content-center colors my-2">
+                        <div
+                            class="btn-group"
+                            data-toggle="buttons"
+                            data-tooltip="tooltip"
+                            data-placement="right"
+                            title="choose color">
+                            <label *ngIf="item.color_id == 3" class="btn btn-red form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                            <label *ngIf="item.color_id == 6"  class="btn btn-blue form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                            <label *ngIf="item.color_id == 5"  class="btn btn-green form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                            <label *ngIf="item.color_id == 1"  class="btn btn-orange form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                            <label *ngIf="item.color_id == 4"  class="btn btn-pink form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                            <label *ngIf="item.color_id == 2"  class="btn btn-secondary form-check-label active"> <input class="form-check-input" type="radio" autocomplete="off"> </label>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <div class="font-weight-bold">$ {{item.price}}</div>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center ">
+                      <div class="font-weight-bold">Size: {{item.size_text}}</div>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center ">
+                    <div class="font-weight-bold">Category: {{item.category_text}}</div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  </div>
+
+
+  <app-paginator
+  class="d-flex justify-content-between align-items-center flex-wrap"
+  [paginator]="paginator"
+  [isLoading]="isLoading"
+  (paginate)="paginate($event)"
+></app-paginator>

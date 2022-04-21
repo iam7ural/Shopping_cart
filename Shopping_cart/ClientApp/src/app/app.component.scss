@@ -1,0 +1,15 @@
+:host {
+  height: 100%;
+  margin: 0;
+}
+
+::ng-deep .md-full-size-class ::ng-deep.modal-dialog  {
+  max-width: 100%;
+  width: 100%;
+
+}
+
+::ng-deep .modal-content{
+  min-height: 100%;
+  height: 100%;
+}

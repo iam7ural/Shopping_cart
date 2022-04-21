@@ -1,0 +1,116 @@
+<div
+  id="table"
+  class="card card-custom gutter-b">
+  <div class="card-body" style="overflow: auto; min-height: 25vh; max-height: 75vh;"
+  >
+    <div class="table-responsive angular-bootstrap-table">
+      <table
+        class="table table-striped table-bordered table-primary table-vertical-center table-row-focus metronictablemainclass"
+        style="border: 1px black solid;"
+      >
+      <thead id="thead" style="background-color: #1e1e2d; " class="text-light">
+        <tr class="text-center">
+          <th>
+            PRODUCT
+            <app-sort-icon
+              column="product_text"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <th>
+            PRICE
+            <app-sort-icon
+              column="price"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <th>
+            QUATITY
+            <app-sort-icon
+              column="quantity"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <th>
+            TOTAL
+            <app-sort-icon
+              column="total"
+              [activeColumn]="sorting.column"
+              [activeDirection]="sorting.direction"
+              (sort)="sort($event)"
+            ></app-sort-icon>
+          </th>
+          <th>
+            OPERATIONS
+          </th>
+        </tr>
+        </thead>
+
+        <tbody>
+          <tr class="text-center"
+            *ngFor="let item of tableService.items$ | async"
+            (dblclick)="show(item.id)"
+          >
+            <td>{{ item.product_text }}</td>
+            <td>{{ item.price | number:'0.2-2' }}</td>
+            <td>{{ item.quantity }}
+              <a
+              title="Increase quantity"
+              class="btn btn-icon btn-light btn-hover-success btn-sm"
+              (click)="increaseQuantity(item.product_id)"
+            >
+              <span
+                [inlineSVG]="'./assets/media/svg/icons/MyIcons/plus.svg'"
+                cacheSVG="true"
+                class="svg-icon svg-icon-md svg-icon-danger"
+              >
+              </span>
+            </a>
+            <a
+            title="Decrease quantity"
+            class="btn btn-icon btn-light btn-hover-primary btn-sm"
+            (click)="decreaseQuantity(item.product_id)"
+          >
+            <span
+              [inlineSVG]="'./assets/media/svg/icons/MyIcons/minus.svg'"
+              cacheSVG="true"
+              class="svg-icon svg-icon-md svg-icon-danger"
+            >
+            </span>
+          </a>
+            </td>
+            <td>{{ item.total  | number:'0.2-2' }}</td>
+            <td>
+              <a
+                title="Delete item"
+                class="btn btn-icon btn-light btn-hover-danger btn-sm"
+                (click)="delete(item.product_id)"
+              >
+                <span
+                  [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'"
+                  cacheSVG="true"
+                  class="svg-icon svg-icon-md svg-icon-danger"
+                >
+                </span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- end: Table -->
+    <app-paginator
+      class="d-flex justify-content-between align-items-center flex-wrap"
+      [paginator]="paginator"
+      [isLoading]="isLoading"
+      (paginate)="paginate($event)"
+    ></app-paginator>
+  </div>
+</div>
+
